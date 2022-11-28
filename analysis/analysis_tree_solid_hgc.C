@@ -19,9 +19,9 @@
 #include <TSystem.h>
 #include <TArc.h>
 #include <TMath.h>
+#include <TRandom3.h>
 
 using namespace std;
-
 
 double PhotonEnergy[42]={
 2.04358, 2.0664, 2.09046, 2.14023, 
@@ -70,12 +70,6 @@ double QE_H12700_03_WLS_meas[n] = {
 
 double *eff_PMT=QE_H12700_03_WLS_meas;
 
-//safety factor
-//PMT and assmbly effective area
-//for pion, manual reduce 2
-// double factor=0.8*0.5;  
-double factor=0.8;  
-
 vector<int> *solid_hgc_id=0,*solid_hgc_hitn=0;
 vector<int> *solid_hgc_pid=0,*solid_hgc_mpid=0,*solid_hgc_tid=0,*solid_hgc_mtid=0,*solid_hgc_otid=0;
 vector<double> *solid_hgc_trackE=0,*solid_hgc_totEdep=0,*solid_hgc_avg_x=0,*solid_hgc_avg_y=0,*solid_hgc_avg_z=0,*solid_hgc_avg_lx=0,*solid_hgc_avg_ly=0,*solid_hgc_avg_lz=0,*solid_hgc_px=0,*solid_hgc_py=0,*solid_hgc_pz=0,*solid_hgc_vx=0,*solid_hgc_vy=0,*solid_hgc_vz=0,*solid_hgc_mvx=0,*solid_hgc_mvy=0,*solid_hgc_mvz=0,*solid_hgc_avg_t=0;
@@ -111,52 +105,234 @@ tree_solid_hgc->SetBranchAddress("avg_t",&solid_hgc_avg_t);
 return;
 }
 
-Bool_t process_tree_solid_hgc(TTree *tree_solid_hgc,double *hit_hgc)
+// Bool_t process_tree_solid_hgc(TTree *tree_solid_hgc,double *hit_hgc,Int_t *trigger_hgc, Int_t &ntrigsecs_hgc, Int_t PMTthresh_hgc, Int_t PEthresh_hgc,Int_t ch_hgc,ofstream &textfile)
+// Bool_t process_tree_solid_hgc(TTree *tree_solid_hgc,double *hit_hgc,Int_t *trigger_hgc, Int_t &ntrigsecs_hgc, Int_t PMTthresh_hgc, Int_t PEthresh_hgc,Int_t ch_hgc)
+// { 
+//   	TRandom3 rand;
+// 	rand.SetSeed(0);
+// 	
+// int sensor_hgc = ch_hgc/30;
+// int sensor_trans_hgc = sqrt(sensor_hgc);
+// // cout << sensor_hgc << " " << sensor_trans_hgc << endl;
+// 
+//   double npe_hgc=0;
+//   
+//   int counter_in=0,counter_good=0, counter_out=0;  
+//   double count_photon=0;  
+//     for (Int_t j=0;j<solid_hgc_hitn->size();j++) {
+// //       cout << "solid_hgc " << " !!! " << solid_hgc_hitn->at(j) << " " << solid_hgc_id->at(j) << " " << solid_hgc_pid->at(j) << " " << solid_hgc_mpid->at(j) << " " << solid_hgc_tid->at(j) << " " << solid_hgc_mtid->at(j) << " " << solid_hgc_trackE->at(j) << " " << solid_hgc_totEdep->at(j) << " " << solid_hgc_avg_x->at(j) << " " << solid_hgc_avg_y->at(j) << " " << solid_hgc_avg_z->at(j) << " " << solid_hgc_avg_lx->at(j) << " " << solid_hgc_avg_ly->at(j) << " " << solid_hgc_avg_lz->at(j) << " " << solid_hgc_px->at(j) << " " << solid_hgc_py->at(j) << " " << solid_hgc_pz->at(j) << " " << solid_hgc_vx->at(j) << " " << solid_hgc_vy->at(j) << " " << solid_hgc_vz->at(j) << " " << solid_hgc_mvx->at(j) << " " << solid_hgc_mvy->at(j) << " " << solid_hgc_mvz->at(j) << " " << solid_hgc_avg_t->at(j) << endl;  
+// 
+//       if (solid_hgc_pid->at(j)==0) {count_photon++;}
+//       else {
+// //       else cout << "pid wrong " << solid_hgc_pid->at(j) << endl;  //there are many
+// 	continue;
+//       }
+//       
+//       int detector_ID=solid_hgc_id->at(j)/1000000;
+//       int subdetector_ID=(solid_hgc_id->at(j)%1000000)/100000;
+//       int subsubdetector_ID=((solid_hgc_id->at(j)%1000000)%100000)/10000;
+//       int component_ID=solid_hgc_id->at(j)%10000;
+//       
+// //     cout << detector_ID << " " << subdetector_ID << " "  << subsubdetector_ID  << " " << component_ID << ", " << solid_hgc_avg_lx->at(j) << ", " << solid_hgc_avg_ly->at(j) << endl; 
+//      
+// //       if (detector_ID==2 && subdetector_ID == 2 && subsubdetector_ID == 1) {	  //1st sector only
+//       if (detector_ID==2){ //all sectors
+// 	  double E_photon=solid_hgc_trackE->at(j)*1e6; //in eV
+// 	  
+// 	  //simulation shouldn't produce any photon beyond the range
+// 	  if (E_photon<PhotonEnergy[0] || PhotonEnergy[n]<E_photon) cout << "E_photon " << E_photon << endl;
+// // 	  cout << "E_photon " << E_photon << endl;
+// 	  double weight=0;
+// 	  bool Is_pass=false;
+// 	  for (Int_t k=0;k<n;k++) {	      
+// // 	  for (Int_t k=0;k<25;k++) {	 // cut on 360nm/3.35eV
+// 	    if (PhotonEnergy[k]<=E_photon && E_photon<PhotonEnergy[k+1]) {
+// 	    counter_in++;
+// // 	    weight=1;
+// 	    weight=eff_PMT[k]*factor;
+// // 	    if (solid_hgc_mtid->at(j)!=1 && solid_hgc_mpid->at(j)!=13 ) {weight=eff_PMT[k]*factor;counter_good++;
+// // 	      cout << "2 " << solid_hgc_mtid->at(j) << " " << solid_hgc_mpid->at(j) << endl;	    
+// // 	      cout << "mother " << solid_hgc_mtid->at(j) << " " << solid_hgc_mpid->at(j) << " " << solid_hgc_mvz->at(j) << endl;
+// // 	    }
+// 	    if (rand.Uniform(0,1)<weight) Is_pass=true;
+// 	    break;
+// 	    }
+// 	  }
+// 	  
+// 	  if (Is_pass){
+// 	      npe_hgc += 1;
+// 
+// //     	  int sector=solid_hgc_id->at(j)/100000-22;  //wrong id matching
+// // 	      int sector=solid_hgc_id->at(j)/10000-220-1;  //match id 2210000 - 2500000
+//     	  int sector=(solid_hgc_id->at(j)%100000)/1000-1;  //match id 2201000 - 2230000
+// //     	  cout << "sector " << sector << endl;
+// 	      
+// 	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2)));
+// 	      if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<sensor_trans_hgc && 0<=pmt_y && pmt_y<sensor_trans_hgc){	    
+// 		hit_hgc[sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x] += 1;				
+// // // 		textfile << i << "\t" << index << "\t" << hit_hgc[index] << endl;
+// // 		textfile << sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x << "\t" << solid_hgc_mpid->at(j) << "\t" << solid_hgc_mtid->at(j) << endl;
+// //   	  cout << sector << " " << sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x << " " << solid_hgc_avg_x->at(j) << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_z->at(j) << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y  << endl;
+// // 	  cout << solid_hgc_avg_y->at(j) << " " << solid_hgc_avg_lz->at(j) << endl;    
+// 		
+//     // 	    hit_hgc[16*sector+4*(3-pmt_y)+pmt_x] += weight;		
+// 	      }
+// 	      else cout << "wrong sector or pmt " << sector << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y << endl;
+// 	  }
+//       }
+//       else {
+// 	cout << "hit id wrong " << solid_hgc_id->at(j) << endl;
+//       }
+//     }
+//   
+//   for(UInt_t i = 0; i < 30; i++){
+//     Int_t ntrigpmts_hgc =0;
+//     for(Int_t j = 0; j < sensor_hgc; j++){       
+//       if(hit_hgc[i*sensor_hgc+j] >= PEthresh_hgc) ntrigpmts_hgc++;    
+//     }
+//     if(ntrigpmts_hgc >= PMTthresh_hgc) {
+//       ntrigsecs_hgc++;
+//       trigger_hgc[i]=1;
+//     }
+//   }
+//   if(ntrigsecs_hgc){
+//     return true;
+//   }else{
+//     return false;
+//   }    
+//    
+// //     if (npe_hgc>0)  cout << "solid_hgc_hitn->size() " << solid_hgc_hitn->size() << " " << count_photon << " " << counter_in << " " << counter_good << endl;
+//     
+// // if (npe_hgc>0) return true;
+// // else return false;
+// 
+// }
+
+Bool_t process_tree_solid_hgc(TTree *tree_solid_hgc,bool Is_simsafe,double *hit_hgc_pmt,double *hit_hgc_quad,double *hit_hgc_pixel,Int_t *trigger_hgc, Int_t &ntrigsecs_hgc, Int_t PMTthresh_hgc, Int_t PEthresh_hgc)
 { 
+  TRandom3 rand;
+  rand.SetSeed(0);
+	
+  double factor_packing=0.8; //from PMT packing ratio
+  double factor=factor_packing;
+  if (Is_simsafe) factor=factor*0.5; //and addition sim safety factor  
+	
   double npe_hgc=0;
   
-  double count_this=0,count_that=0;  
+  int counter_in=0,counter_good=0, counter_out=0;  
+  double count_photon=0;  
     for (Int_t j=0;j<solid_hgc_hitn->size();j++) {
 //       cout << "solid_hgc " << " !!! " << solid_hgc_hitn->at(j) << " " << solid_hgc_id->at(j) << " " << solid_hgc_pid->at(j) << " " << solid_hgc_mpid->at(j) << " " << solid_hgc_tid->at(j) << " " << solid_hgc_mtid->at(j) << " " << solid_hgc_trackE->at(j) << " " << solid_hgc_totEdep->at(j) << " " << solid_hgc_avg_x->at(j) << " " << solid_hgc_avg_y->at(j) << " " << solid_hgc_avg_z->at(j) << " " << solid_hgc_avg_lx->at(j) << " " << solid_hgc_avg_ly->at(j) << " " << solid_hgc_avg_lz->at(j) << " " << solid_hgc_px->at(j) << " " << solid_hgc_py->at(j) << " " << solid_hgc_pz->at(j) << " " << solid_hgc_vx->at(j) << " " << solid_hgc_vy->at(j) << " " << solid_hgc_vz->at(j) << " " << solid_hgc_mvx->at(j) << " " << solid_hgc_mvy->at(j) << " " << solid_hgc_mvz->at(j) << " " << solid_hgc_avg_t->at(j) << endl;  
-
+// 	  cout << j << " " << solid_hgc_hitn->at(j) << " " << solid_hgc_pid->at(j) << endl;
+      
+//       if (solid_hgc_pid->at(j)==0) {count_photon++;} // old gemc
+      if (solid_hgc_pid->at(j)==-22) {count_photon++;} //gemc 2.9
+      else {
+// 	cout << "pid not optical photon " << solid_hgc_pid->at(j) << endl;  //there are many
+	continue;
+      }
+      
       int detector_ID=solid_hgc_id->at(j)/1000000;
       int subdetector_ID=(solid_hgc_id->at(j)%1000000)/100000;
       int subsubdetector_ID=((solid_hgc_id->at(j)%1000000)%100000)/10000;
       int component_ID=solid_hgc_id->at(j)%10000;
       
 //     cout << detector_ID << " " << subdetector_ID << " "  << subsubdetector_ID  << " " << component_ID << ", " << solid_hgc_avg_lx->at(j) << ", " << solid_hgc_avg_ly->at(j) << endl; 
-      
-      if (solid_hgc_pid->at(j)!=0) continue;
-      
-      if (detector_ID==2 && subdetector_ID == 2 && subsubdetector_ID == 1) {	  
+     
+//       if (detector_ID==2 && subdetector_ID == 2 && subsubdetector_ID == 1) {	  //1st sector only
+      if (detector_ID==2){ //all sectors
 	  double E_photon=solid_hgc_trackE->at(j)*1e6; //in eV
-	  double weight=0; 	  
+	  
+	  //simulation shouldn't produce any photon beyond the range
+	  if (E_photon<PhotonEnergy[0] || PhotonEnergy[n]<E_photon) cout << "E_photon " << E_photon << endl;
+// 	  cout << "E_photon " << E_photon << endl;
+	  double weight=0;
+	  bool Is_pass=false;
 	  for (Int_t k=0;k<n;k++) {	      
 // 	  for (Int_t k=0;k<25;k++) {	 // cut on 360nm/3.35eV
 	    if (PhotonEnergy[k]<=E_photon && E_photon<PhotonEnergy[k+1]) {
-	    weight=eff_PMT[k];
+	    counter_in++;
+// 	    weight=1;
+	    weight=eff_PMT[k]*factor;
+// 	    if (solid_hgc_mtid->at(j)!=1 && solid_hgc_mpid->at(j)!=13 ) {weight=eff_PMT[k]*factor;counter_good++;
+// 	      cout << "2 " << solid_hgc_mtid->at(j) << " " << solid_hgc_mpid->at(j) << endl;	    
+// 	      cout << "mother " << solid_hgc_mtid->at(j) << " " << solid_hgc_mpid->at(j) << " " << solid_hgc_mvz->at(j) << endl;
+// 	    }
+	    if (rand.Uniform(0,1)<weight) Is_pass=true;
 	    break;
 	    }
 	  }
-	  npe_hgc +=weight;
 
-	  int sector=solid_hgc_id->at(j)/100000-22;
-	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-101.6))/50.8),pmt_y=int((solid_hgc_avg_ly->at(j)-(-101.6))/50.8);    
-	  if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<4 && 0<=pmt_y && pmt_y<4){	    
-	    hit_hgc[16*sector+4*(3-pmt_y)+pmt_x] += weight;    
-	  }
-	  else cout << "wrong sector or pmt " << sector << " " << pmt_x << " " << pmt_y << endl;
+	  if (Is_pass){
+	      npe_hgc += 1;
+
+// 	  int sector=solid_hgc_id->at(j)/10000-220-1;  //match id 2210000 - 2500000, for old hgc_id
+    	  int sector=(solid_hgc_id->at(j)%100000)/1000-1;  //match id 2201000 - 2230000, for new hgc_id
+//     	  cout << "sector " << sector << endl;
 	  
-	count_this +=1;		  
+	  int ch_hgc=480;	
+	  int sensor_hgc = ch_hgc/30;
+	  int sensor_trans_hgc = sqrt(sensor_hgc);
+	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2)));
+	  if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<sensor_trans_hgc && 0<=pmt_y && pmt_y<sensor_trans_hgc){	    
+	    hit_hgc_pmt[sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x] += 1;				
+// // 		textfile << i << "\t" << index << "\t" << hit_hgc[index] << endl;
+// 		textfile << sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x << "\t" << solid_hgc_mpid->at(j) << "\t" << solid_hgc_mtid->at(j) << endl;
+//   	  cout << sector << " " << sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x << " " << solid_hgc_avg_x->at(j) << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_z->at(j) << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y  << endl;
+// 	  cout << solid_hgc_avg_y->at(j) << " " << solid_hgc_avg_lz->at(j) << endl;    
+	    
+// 	    hit_hgc[16*sector+4*(3-pmt_y)+pmt_x] += weight;		
+	  }
+	  else cout << "wrong sector or pmt " << sector << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y << endl;
+	  
+	  ch_hgc=1920;	
+	  sensor_hgc = ch_hgc/30;
+	  sensor_trans_hgc = sqrt(sensor_hgc);	  
+	  pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2)));
+	  if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<sensor_trans_hgc && 0<=pmt_y && pmt_y<sensor_trans_hgc){	    
+		hit_hgc_quad[sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x] += 1;				
+	  }
+	  else cout << "wrong sector or pmt " << sector << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y << endl;  
+	  
+	  ch_hgc=30720;	
+	  sensor_hgc = ch_hgc/30;
+	  sensor_trans_hgc = sqrt(sensor_hgc);	  
+	  pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2)));
+	  if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<sensor_trans_hgc && 0<=pmt_y && pmt_y<sensor_trans_hgc){	    
+		hit_hgc_pixel[sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x] += 1;				
+	  }
+	  else cout << "wrong sector or pmt " << sector << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y << endl; 
+	  
+// 	  cout << sector << " " << solid_hgc_avg_x->at(j) << " " << solid_hgc_avg_lx->at(j) << " " << pmt_x << " " << solid_hgc_avg_y->at(j) << " " << solid_hgc_avg_ly->at(j) << " " << pmt_y << endl;  
       }
-      else {
-	count_that +=1;	
-      }
-    }   
-   
-    npe_hgc = npe_hgc*factor;
+//       else cout << "not pass " << E_photon << " " << weight << endl; 
+    }
+    else {
+      cout << "hit id wrong " << solid_hgc_id->at(j) << endl;
+    }
     
-if (npe_hgc>0) return true;
-else return false;
-
+    }// end of looping hit
+    
+//     if (solid_hgc_hitn->size()>0) cout << "hitn " << solid_hgc_hitn->size() << " " << count_photon << " " << counter_in << " " << npe_hgc << " " << counter_good << endl;
+    
+  for(UInt_t i = 0; i < 30; i++){
+    Int_t ntrigpmts_hgc =0;
+    for(Int_t j = 0; j < 16; j++){       
+      if(hit_hgc_pmt[i*16+j] >= PEthresh_hgc) ntrigpmts_hgc++;    
+    }
+    if(ntrigpmts_hgc >= PMTthresh_hgc) {
+      ntrigsecs_hgc++;
+      trigger_hgc[i]=1;
+    }
+  }
+  
+  if(ntrigsecs_hgc){
+    return true;
+  }else{
+    return false;
+  }    
+   
+//     if (npe_hgc>0) return true;
+//     else return false;
+    
 }
