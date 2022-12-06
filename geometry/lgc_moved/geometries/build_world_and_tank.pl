@@ -129,7 +129,7 @@ if($use_modNose){
 	#including cable space:
 	#$detector{"dimensions"}  = "0*deg 360*deg 5*counts 59.70*cm 61.5*cm 63.35*cm 63.35*cm 73.14*cm 130*cm 145*cm 163*cm 263*cm 263*cm 194*cm 210*cm 232*cm 226*cm 312*cm";
 	#add a 0.1 mm to inner diameter:
-	$detector{"dimensions"}  = "0*deg 360*deg 5*counts 59.71*cm 61.51*cm 63.36*cm 63.36*cm 73.15*cm 130*cm 145*cm 163*cm 263*cm 263*cm 194*cm 210*cm 232*cm 226*cm 312*cm";
+	$detector{"dimensions"}  = "0*deg 360*deg 5*counts 59.75*cm 61.55*cm 63.4*cm 63.4*cm 73.2*cm 130*cm 145*cm 163*cm 263*cm 263*cm 194*cm 210*cm 226*cm 226*cm 312*cm";
 }	
 
 
@@ -352,7 +352,7 @@ sub make_tank_CLEO_sidis
 		#including cable space:
 		#include a mm to inner radius:
 		#$detector{"dimensions"}  = "0*deg 360*deg 6*counts 48.65*cm 59.70*cm 61.5*cm 63.35*cm 63.35*cm 73.14*cm 130*cm 130*cm 145*cm 163*cm 263*cm 263*cm 97*cm 194*cm 210*cm 232*cm 226*cm 312*cm";
-		$detector{"dimensions"}  = "0*deg 360*deg 6*counts 48.66*cm 59.71*cm 61.51*cm 63.36*cm 63.36*cm 73.15*cm 130*cm 130*cm 145*cm 163*cm 263*cm 263*cm 97*cm 194*cm 210*cm 232*cm 226*cm 312*cm";
+		$detector{"dimensions"}  = "0*deg 360*deg 6*counts 48.7*cm 59.75*cm 61.55*cm 63.4*cm 63.4*cm 73.2*cm 130*cm 130*cm 145*cm 163*cm 263*cm 263*cm 97*cm 194*cm 210*cm 232*cm 232*cm 312*cm";
 	}	
 
 
