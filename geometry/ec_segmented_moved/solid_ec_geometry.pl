@@ -482,7 +482,7 @@ sub make_ec_module_shower()
 	
 	#build scint rod
 	  for(my $l=1; $l<=6; $l++){
-	    if($j == 1){ $detector{"name"}        = "$DetectorName\_showe$id\_scint$j\_rod$l";}
+	    if(($j == 1) && ($l == 1)){ $detector{"name"}        = "$DetectorName\_showe$id\_scin$j\_rod$l";}
 	    else {$detector{"name"}        = "$DetectorName\_showe$id\_scint$j\_rod$l";}
 	    $detector{"mother"}      = "$DetectorName\_showe$id";
 	    $detector{"description"} = $detector{"name"};
@@ -495,7 +495,7 @@ sub make_ec_module_shower()
 	    $detector{"type"}       = "Tube";
 	    $detector{"dimensions"} = "0*cm $R_rod*cm $Dz_scint*cm 0*deg 360*deg";    
 	    }
-	    else{  $detector{"type"}       = "CopyOf $DetectorName\_showe$id\_scint1_rod1";}	
+	    else{  $detector{"type"}       = "CopyOf $DetectorName\_showe$id\_scin1_rod1";}	
 	    $detector{"material"}   = $material_rod;
 	    $detector{"mfield"}     = "no";
 	    $detector{"ncopy"}      = 1;
