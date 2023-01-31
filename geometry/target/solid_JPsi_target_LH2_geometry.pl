@@ -22,6 +22,11 @@ make_target();
 # my $targetoff=-350;
 my $targetoff=-315;
 
+# my $targetlength=30;
+my $targetlength=15;
+# my $targetlength=10;
+# my $targetlength=5;
+ 
 # C --     Target  ==================================
 # C
 # GPARVOL21  'TACH'  209  'TARC'    0.    0.    0.    0  'TUBE'  3   0.    5.00   25.00    
@@ -35,11 +40,12 @@ my $targetoff=-315;
 
 sub make_target
 {
+
  my $NUM  = 5;
- my @z    = (0.+$targetoff,0.,-7.5-0.0102/2,7.5+0.0102/2,0.);
+ my @z    = (0.+$targetoff,0.,-$targetlength/2.-0.0102/2,$targetlength/2.+0.0102/2,0.);
  my @Rin  = (0.,3.81/2-0.0178,0.,0.,0.);
  my @Rout = (2,3.81/2,3.81/2-0.0178,3.81/2-0.0178,3.81/2-0.0178);
- my @Dz   = (7.5+0.0102,7.5+0.0102,0.0102/2,0.0102/2,7.5);
+ my @Dz   = ($targetlength/2.+0.0102,$targetlength/2.+0.0102,0.0102/2,0.0102/2,$targetlength/2.);
  my @name = ("$DetectorName\_TACH","$DetectorName\_TACL","$DetectorName\_TAW1","$DetectorName\_TAW2","$DetectorName\_TALH");
  my @mother=("$DetectorMother","$DetectorName\_TACH","$DetectorName\_TACH","$DetectorName\_TACH","$DetectorName\_TACH");
  my @mat  = ("G4_AIR","G4_Al","G4_Al","G4_Al","G4_lH2");
