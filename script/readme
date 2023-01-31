@@ -5,16 +5,15 @@ solid_PVDIS_LD2_moved_full.gcard
 solid_SIDIS_He3_moved_full.gcard
 solid_SIDIS_NH3_moved_full.gcard
 solid_JPsi_LH2_moved_full.gcard
-solid_DDVCS_JPsi_LH2_moved_full.gcard
-solid_DDVCS_PVDIS_LH2_moved_full.gcard
+solid_JPsi_DDVCS_LH2_moved_full.gcard
 
 ==  gcard show full SoLID simulation with with shorter endcap in graphic mode==
 solid_PVDIS_LD2_full.gcard
 solid_SIDIS_He3_full.gcard
 solid_SIDIS_NH3_full.gcard
 solid_JPsi_LH2_full.gcard
-solid_DDVCS_JPsi_LH2_full.gcard
-solid_DDVCS_PVDIS_LH2_full.gcard
+solid_JPsi_DDVCS_LH2_full.gcard
+solid_PVDIS_DDVCS_LH2_full.gcard
 
 == old gcard file using simplified SoLID simulation in graphic mode (outdated)===
 solid_JPsi_LH2.gcard
@@ -30,7 +29,7 @@ solid_SIDIS_NH3_simple.gcard
 
 solid_slice.vis
 
-solid_slice_nohit.vis   (gemc 2.3 will do segmentation fault using this)
+solid_slice_nohit.vis   (disable hit)
 
 == farm script ==
 
