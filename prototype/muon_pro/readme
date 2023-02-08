@@ -1,0 +1,27 @@
+= run simulation =====
+#get ready to run simulation
+follow "how to run your customized installation" on ifarm at https://github.com/JeffersonLab/solid_release/blob/master/howto.md
+
+create or update geometry 
+./solid_DDVCS_muon_forwardangle.pl config.dat
+./solid_DDVCS_muon_largeangle.pl config.dat
+./solid_DDVCS_muon_barrel.pl config.dat
+
+#run with graphic 
+solid_gemc muon.gcard
+
+#run with batch
+solid_gemc muon.gcard -USE_GUI=0 -OUTPUT="evio,out.evio" -BEAM_P="pi-,5.5*GeV,45*deg,0*deg" -SPREAD_P="5.5*GeV,45*deg,180*deg" -BEAM_P="pi-,3*GeV,73*deg,0*deg" -BEAM_V="(0,0,-315)cm" -SPREAD_V="(0.2,7.5)cm" -SWITCH_MATERIALTO="G4_Fe,G4_AIR" -N=1e4
+
+Note that "-SWITCH_MATERIALTO="G4_Fe,G4_AIR"" temporally change iron to air to speed up simulation. To really study muon detector, this option can't be used. 
+
+#convert to root file
+evio2root -INPUTF=out.evio -R="flux"
+
+#exit container
+ctrl-d or exit
+
+= analysis result =====
+(do this outside of the container)
+source /group/solid/apps/root/root_v6.24.06.Linux-centos7-x86_64-gcc4.8/bin/thisroot.csh
+root 'analysis.C+("out.root")'

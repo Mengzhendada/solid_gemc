@@ -1,0 +1,77 @@
+<gcard>
+
+<detector name="../../geometry/magnet_moved/solid_solenoid" factory="TEXT" variation="v4"/>
+<detector name="../../geometry/magnet_moved/solid_solenoid_cryo" factory="TEXT" variation="Original"/>
+<detector name="solid_DDVCS_muon_forwardangle" factory="TEXT" variation="Original"/>
+<detector name="solid_DDVCS_muon_largeangle" factory="TEXT" variation="Original"/>
+<detector name="solid_DDVCS_muon_barrel" factory="TEXT" variation="Original"/>
+
+<option name="INTEGRATEDRAW" value="flux"/>
+<option name="RECORD_PASSBY" value="1"/>
+<option name="SAVE_ALL_MOTHERS" value="1"/>
+
+<option name="HIT_PROCESS_LIST" value="solid"/>
+<option name="PHYSICS" value="QGSP_BERT+STD+Optical"/>
+<option name="HALL_MATERIAL" value="G4_Galactic"/>
+
+<!--
+<option name="FIELD_DIR" value="/group/solid/www/solid/html/files/field"/>
+<option name="HALL_FIELD" value="solenoid_v4"/>
+<option name="FIELD_PROPERTIES" value="solenoid_v4, 1*mm, G4ClassicalRK4,linear"/>
+-->
+
+<option name="MAX_X_POS" value="20000"/>
+<option name="MAX_Y_POS" value="20000"/>
+<option name="MAX_Z_POS" value="20000"/>
+<option name="HALL_DIMENSIONS" value="20*m,20*m,20*m"/>
+
+<option name="USE_GUI"  value="1"/>
+
+
+</gcard>
+
+<!--  comment out
+<option name="GEO_VERBOSITY"  value="100"/>
+<option name="G4P_VERBOSITY"  value="100"/>
+<option name="HIT_VERBOSITY"  value="100"/>
+
+<option name="PHYSICS" value="QGSP_BERT+STD+Optical"/>
+
+<option name="INTEGRATEDRAW" value="flux,solid_ec"/>
+
+<option name="FIELD_VERBOSITY"  value="100"/>
+<option name="GEO_VERBOSITY"  value="100"/>
+
+<option name="MATERIAL_VERBOSITY"  value="100"/>
+
+<option name="CHECK_OVERLAPS"  value="1"/>
+<option name="USE_GUI"  value="0"/>
+
+<option name="N" value="1e4"/>
+<option name="OUTPUT" value="evio,output_theta8_z0_blockon_fieldoff_1e4.evio"/>
+<option name="USE_GUI"  value="0"/>
+
+<option name="FIELD_DIR" value="../../../solid_gemc2/field/"/>
+<option name="HALL_FIELD" value="solenoid_CLEOv8"/>
+
+<option name="BEAM_P"   value="pi-,5*GeV,8*deg,0*deg"/>
+<option name="SPREAD_P" value="3*GeV,0*deg,180*deg"/>
+<option name="BEAM_V"   value="(0,0,-350)cm"/>
+<option name="SPREAD_V" value="(0.0,0)cm"/>
+
+<option name="EXEC_MACRO" value="solid_slice.vis"/>
+<option name="geometry" value="1000x1000"/>
+<option name="HIGH_RES" value="1"/>
+<option name="USE_GUI"  value="1"/>
+
+
+<option name="N" value="1e4"/>
+<option name="OUTPUT" value="evio,output_theta8_z0_fieldon_1e4.evio"/>
+<option name="USE_GUI"  value="0"/>
+
+<option name="OUTPUT" value="txt,output.txt"/>
+<option name="OUTPUT" value="evio,output.evio"/>
+
+<option name="ENERGY_CUT"  value="0.1"/>
+
+-->
