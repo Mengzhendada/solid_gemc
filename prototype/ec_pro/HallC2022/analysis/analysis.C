@@ -94,8 +94,8 @@ const double DEG=180./3.1415926;   //rad to degree
 int analysis(string inputfile_name,string runmode="trigger", bool Is_tellorig=false,string filetype="",bool Is_new=true){
 
 // gStyle->SetOptStat(11111111);
-gStyle->SetOptStat("ioue");
-// gStyle->SetOptStat(0);
+// gStyle->SetOptStat("ioue");
+gStyle->SetOptStat(1);
 
 // gStyle->SetPalette(57);
 
@@ -197,10 +197,16 @@ else {
 
 //Cherenkov sensor for 30 sectors
 const int ch_lgc=270;
+
+//for 4x4 PMT array
 // const int ch_hgc=480;    	//pmt readout
 // const int ch_hgc=1920;	//quad readout
+// const int ch_hgc=30720;	//pixel readout
+
+//for 2x2 PMT array
+// const int ch_hgc=120;	//pmt readout
 const int ch_hgc=480;	//quad readout
-// const int ch_hgc=30720;		//pixel readout
+// const int ch_hgc=7680;	//pixel readout
 
 const int sensor_hgc = ch_hgc/30;
 const int sensor_trans_hgc = sqrt(sensor_hgc);		

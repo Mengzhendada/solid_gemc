@@ -73,8 +73,8 @@ double QE_LAPPD_WLS_meas[n] = {
 2.87e-2,3.23e-2,3.48e-2,4.20e-2,5.42e-2,6.39e-2,7.26e-2,9.06e-2,10.68e-2,11.52e-2,12.05e-2,12.88e-2,13.59e-2,14.36e-2,14.77e-2,15.06e-2,15.54e-2,16.12e-2,16.45e-2,16.19e-2,15.77e-2,15.47e-2,15.31e-2,15.35e-2,15.43e-2,15.32e-2,15.12e-2,15.17e-2,14.48e-2,13.92e-2,13.23e-2,13.57e-2,14.43e-2,14.23e-2,13.93e-2,14.23e-2,14.02e-2,14.36e-2,14.74e-2,15.14e-2,13.09e-2
 };
 
-// double *eff_PMT=QE_H12700_03_WLS_meas;
-double *eff_PMT=QE_LAPPD_WLS_meas;
+double *eff_PMT=QE_H12700_03_WLS_meas;
+// double *eff_PMT=QE_LAPPD_WLS_meas;
 
 //safety factor
 //PMT and assmbly effective area
@@ -179,8 +179,8 @@ int sensor_trans_hgc = sqrt(sensor_hgc);
 // 	      int sector=solid_hgc_id->at(j)/10000-220-1;  //match id 2210000 - 2500000
 	      int sector=0;  //match id 2210000 - 2500000	      
 	      
-// 	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2)));
-	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-53.))/(53./(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-53.))/(53./(sensor_trans_hgc/2)));
+// 	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-106.6))/(106.6/(sensor_trans_hgc/2))); // for 4x4 PMT array
+	  int pmt_x=int((solid_hgc_avg_lx->at(j)-(-53.))/(53./(sensor_trans_hgc/2))),pmt_y=int((solid_hgc_avg_ly->at(j)-(-53.))/(53./(sensor_trans_hgc/2))); // for 2x2 PMT array
 
 	      if(0<=sector && sector<30 && 0<=pmt_x && pmt_x<sensor_trans_hgc && 0<=pmt_y && pmt_y<sensor_trans_hgc){	    
 		hit_hgc[sensor_hgc*sector+sensor_trans_hgc*pmt_y+pmt_x] += 1;	
