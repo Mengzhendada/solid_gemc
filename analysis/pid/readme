@@ -3,8 +3,9 @@ tool for particle identification (PID) study
 == compare_e_pibggen.C ========================
 compare inclusive e- and pi rate from generators and apply pi rejection by simple factors
 
-result_20190129 ----------
+dir "compare_e_pibggen_result_20210129" includes summary "solid_pie_zwzhao_20210129.pdf" and each plots
 
+Here is how I produced them. 
 at ifarm, source /group/solid/apps/root/root_v6.18.04.Linux-centos7-x86_64-gcc4.8/bin/thisroot.csh
 then run as follows
 root 'compare_e_pibggen.C("solid_SIDIS_He3","/work/halla/solid/evgen/evgen_inclusive_e/commit11d7751/gen_solid_SIDIS_He3_norad_1e6.root","/work/halla/solid/evgen/solid_bggen/SIDIS_3He")'
@@ -14,7 +15,7 @@ root 'compare_e_pibggen.C("solid_PVDIS_LD2","/work/halla/solid/evgen/evgen_inclu
 root 'compare_e_pibggen.C("solid_PVDIS_LD2","/work/halla/solid/evgen/evgen_inclusive_e/commit11d7751/gen_solid_PVDIS_LD2_norad_1e6.root","/work/halla/solid/evgen/solid_bggen/PVDIS_LD2","pi0")'  # for pi0
 root 'compare_e_pibggen.C("solid_PVDIS_LD2","/work/halla/solid/evgen/evgen_inclusive_e/commit11d7751/gen_solid_PVDIS_LD2_norad_1e6.root","/work/halla/solid/evgen/solid_bggen/PVDIS_LD2","p")'  # for proton
 
-== analysis_rate.C ====================================
+== analysis_rate.C (older tool) ====================================
 root -l 'analysis_rate.C+("/cache/halla/solid/sim/solid_gemc/PVDIS_JLAB_VERSION_devel/pass2/solid_PVDIS_LD2_moved_dirty_weighted_eAll_filenum100_1e6.root","e")'
 
 root -l 'analysis_rate.C+("/cache/halla/solid/sim/solid_gemc/PVDIS_JLAB_VERSION_devel/pass2/solid_PVDIS_LD2_moved_dirty_normalized_pi0Bggen_filenum1902_1.902e6.root","pi0")'
