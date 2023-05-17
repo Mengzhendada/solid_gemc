@@ -2,18 +2,16 @@
 field map dir besides this dir
 web https://solid.jlab.org/files/field/
 jlab ifarm /group/solid/www/solid/html/files/field
+CAD on wiki https://solid.jlab.org/wiki/index.php/Engineering_Integration_and_CAD#magnet
 
 https://solid.jlab.org/files/field/solenoid_v4.dat
 like v3, but reduce endcap steel to 6" thick, by Jay Benesch  in 2022
-refer to 
-https://jlabdoc.jlab.org/docushare/dsweb/Get/Document-255062/22-014.pdf
-https://jlabdoc.jlab.org/docushare/dsweb/Get/Document-255062/22-011.pdf
+refer to 22-011.pdf and 22-014.pdf at https://solid.jlab.org/cgi-bin/public/ShowDocument?docid=484
 
 https://solid.jlab.org/files/field/solenoid_v3.dat
 longer endcap with CLEO iron, 3D map in 1st quadrant, using TOSCA, by Jay Benesch  in 2022
 The difference from v2 is to reduce endcap nose to opening 6.5deg relative to z=-330cm where SIDIS He3 target downstream window is
-refer to
-https://jlabdoc.jlab.org/docushare/dsweb/Get/Document-252695/22-005.pdf
+refer to "22-005.pdf" https://solid.jlab.org/cgi-bin/public/ShowDocument?docid=484
 
 https://solid.jlab.org/files/field/solenoid_v2.dat
 longer endcap with CLEO iron, 3D map in 1st quadrant, using TOSCA, by Jay Benesch  in 2020
@@ -27,16 +25,13 @@ https://solid.jlab.org/cgi-bin/public/ShowDocument?docid=54
 https://solid.jlab.org/cgi-bin/public/ShowDocument?docid=62
 
 solenoid_CLEOv9, longer endcap than CLEOv8,using POSSION, by Zhiwen Zhao 
-
 solenoid_CLEOv8, SoLID CLEO2 magnet map,using POSSION, by Zhiwen Zhao 
 solenoid_CLEOv8_Bz  (Bz field only, Br is 0)
 Bz1.4T uniform Bz field , close to the peak value of CLEOv8
 
-oxford_target,  SoLID SIDIS NH3 target field, map according to oxford 2012 design, using code "oxford_field.f", by Chao Gu
-
-solenoid_target, SoLID SIDIS NH3 target field, converted from g2p map incorrectly, by Kalyan Allada and Zhiwen Zhao
-
-g2p_target, original g2p map, using code "g2p_hallbfield.f", by Chao Gu
+oxford_ptarget,  SoLID SIDIS NH3 target field, map according to oxford 2012 design, using code "oxford_field.f", by Chao Gu
+solenoid_ptarget, SoLID SIDIS NH3 target field, converted from g2p map incorrectly, by Kalyan Allada and Zhiwen Zhao
+g2p_ptarget, original g2p map, using code "g2p_hallbfield.f", by Chao Gu
 
 == tool ==
 this way to find a field value
