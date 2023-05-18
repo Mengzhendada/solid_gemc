@@ -109,6 +109,7 @@ void compare_e_pibggen(string type,string filename_e,string filename_h,string ha
    for(int i=0; i<filecount;i++){
       string filename_hPTheta_name=Form("%s/LUND/hallD_%s_%s_1k_%i.lund",filename_h.c_str(),hadron_filename.c_str(),expname,i+1);
       ifstream input(filename_hPTheta_name.c_str());
+      int eventcont=1000;
       if (input.good()) {} //cout << "open file " << filename_hPTheta_name << " OK" << "\r";
       else {cout << "can't open the file" << endl; return;}
 
@@ -119,7 +120,12 @@ void compare_e_pibggen(string type,string filename_e,string filename_h,string ha
       double  header[10];
       double  particles[14];
 
-      for (int j = 0; j<1000; j++) {
+      for (int j = 0; j<eventcont; j++) {
+//defined in https://github.com/JeffersonLab/evgen_bggen/blob/master/scripts/HallD_gen_lund.cc
+// myfile[pid[111]]<< "1" << " \t " << Wprate  << " \t " << Wmrate  << " \t " << "0"  << " \t " << "0" << " \t "  << fEvXbj << " \t " << y  << " \t " << fEvW2  << " \t " << fEvQ2  << " \t " << targ_A[targ_index]*totalRate[pid[111]]/nLundEntries << endl;
+//   myfile[pid[111]]<< " \t " << "1" << " \t " << pidcharge[111] << " \t " << "1" << " \t " << 111 << " \t " << "0" << " \t " << "0" << " \t " << pout[j][0] << " \t " << pout[j][1] << " \t " << pout[j][2] << " \t " << Ef << " \t " << pidmass[111] << " \t " << fEvV[0]*100  << " \t " << fEvV[1]*100 << " \t " << vz+targ_offset[targ_index]*100 << endl;	
+// 1        0       0       0       0       0       0       0       0       231093
+//          1       -1      1       -211    0       0       -0.0675592      0.440683        0.421785        0.629403        0.13957         0.0881298       -0.18	963      -311.584	
 	      input >> header[0] >> header[1] >> header[2] >> header[3] >> header[4] >> header[5] >> header[6] >> header[7] >> header[8] >> header[9];
 	      input >> particles[0] >> particles[1] >> particles[2] >> particles[3] >> particles[4] >> particles[5] >> particles[6] >> particles[7] >> particles[8] >> particles[9] >> particles[10] >> particles[11] >> particles[12] >> particles[13];
 	      
