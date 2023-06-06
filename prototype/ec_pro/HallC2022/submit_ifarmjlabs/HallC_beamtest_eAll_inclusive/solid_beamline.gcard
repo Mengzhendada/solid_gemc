@@ -1,0 +1,41 @@
+<gcard>
+
+<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc/prototype/ec_pro/HallC2022/geometry/beamline" factory="TEXT" variation="NOtarget"/> 
+<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc/prototype/ec_pro/HallC2022/geometry/cc_pro" factory="TEXT" variation="CO2LA"/>
+<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc/prototype/ec_pro/HallC2022/geometry/solid_spd" factory="TEXT" variation="CO2LA"/>
+<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc/prototype/ec_pro/HallC2022/geometry/solid_gem" factory="TEXT" variation="CO2LA"/>
+<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc/prototype/ec_pro/HallC2022/geometry/solid_ec" factory="TEXT" variation="CO2LA"/>
+
+<option name="INTEGRATEDRAW" value="flux"/>
+
+<option name="HIT_PROCESS_LIST" value="solid"/>
+<option name="PHYSICS" value="QGSP_BERT+STD+Optical"/>
+<option name="RECORD_PASSBY" value="1"/>
+<option name="HALL_MATERIAL" value="G4_Galactic"/>
+
+<option name="MAX_X_POS" value="20000"/>
+<option name="MAX_Y_POS" value="20000"/>
+<option name="MAX_Z_POS" value="20000"/>
+<option name="HALL_DIMENSIONS" value="20*m,20*m,20*m"/>
+
+<option name="geometry" value="1000x1000"/>
+<option name="HIGH_RES" value="1"/>
+
+<option name="OUTPUT" value="evio,out.evio"/>
+<option name="USE_GUI"  value="0"/>
+
+</gcard>
+
+<!--  comment out
+<option name="FIELD_VERBOSITY"  value="100"/>
+<option name="GEO_VERBOSITY"  value="100"/>
+
+<option name="CHECK_OVERLAPS"  value="1"/>
+<option name="USE_GUI"  value="0"/>
+
+
+<option name="EXEC_MACRO" value="solid_slice.vis"/>
+<option name="geometry" value="1000x1000"/>
+<option name="HIGH_RES" value="1"/>
+<option name="USE_GUI"  value="1"/>
+-->
