@@ -1,10 +1,10 @@
 <gcard>
 
-<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc_fork_18deg_r20m_4SC_LD2_shielding_30x30x2.54cm3/prototype/ec_pro/HallC2022/geometry/beamline" factory="TEXT" variation="NOtarget"/>
-<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc_fork_18deg_r20m_4SC_LD2_shielding_30x30x2.54cm3/prototype/ec_pro/HallC2022/geometry/cc_pro" factory="TEXT" variation="CO2LA"/>
-<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc_fork_18deg_r20m_4SC_LD2_shielding_30x30x2.54cm3/prototype/ec_pro/HallC2022/geometry/solid_spd" factory="TEXT" variation="Original"/>
-<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc_fork_18deg_r20m_4SC_LD2_shielding_30x30x2.54cm3/prototype/ec_pro/HallC2022/geometry/solid_gem" factory="TEXT" variation="Original"/>
-<detector name="/w/halla-scshelf2102/solid/tianye/HallCbeamtest/solid_gemc_fork_18deg_r20m_4SC_LD2_shielding_30x30x2.54cm3/prototype/ec_pro/HallC2022/geometry/solid_ec" factory="TEXT" variation="Original"/>
+<detector name="../../geometry_18deg/beamline" factory="TEXT" variation="NOtarget"/>
+<detector name="../../geometry_18deg/cc_pro" factory="TEXT" variation="CO2LA"/>
+<detector name="../../geometry_18deg/solid_spd" factory="TEXT" variation="Original"/>
+<detector name="../../geometry_18deg/solid_gem" factory="TEXT" variation="Original"/>
+<detector name="../../geometry_18deg/solid_ec" factory="TEXT" variation="Original"/>
 <detector name="/group/solid/solid_github/JeffersonLab/solid_gemc_test/prototype/ec_pro/HallC2022/geometry/beamline_cad/" factory="CAD"/>
 
 
