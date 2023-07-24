@@ -35,10 +35,43 @@ root> .x analysis.C+("output.root")
 
 do  "mkdir output" first
 
-run and run_all are example scripts to producde many root files
+run and run_all are example scripts to produce many root files
 
-getplot and getplot_all are example scripts to run analysis.C on files output by the run scripts
+getplot are example scripts to run analysis.C on files output by the run scripts
 
-remember to "mv output output_test" and "mkdir output" again to seprate files by different dir when running different tests
+remember to "mv output output_test" and "mkdir output" again to separate files by different dir when running different tests
 
 
+==============================
+
+about background events
+File "/cache/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass8/farm_solid_SIDIS_He3_moved_BeamOnTarget_0.561e10_skim_HGCwinCF1.root"
+SoLID SIDIS He3 run use 15uA beam, so there 15e-6/1.6e-19*50e-9=4.7e6 e- within 50ns time window
+this skim file has 0.561e10 beam e-. It is 0.561e10/4.7e6=1194 of 50ns time window
+This file has 3990487 not-empty-anydetector events and ~9000 not-empty-hgc event. So each 50ns time window, there are 9000/1194=7.5 events in hgc
+
+good hgc event ~9000
+9000/1194=7.5
+7.5/30=0.25
+
+/volatile/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_2.5/pass1/solid_SIDIS_He3_moved_full_BeamOnTarget_4.8e9_filter_output.root 
+good hgc event ~7500 
+
+===========================================================
+
+see two files at
+/work/halla/solid/zwzhao/solid/output_hgc_study/JLAB_VERSION_1.3/hgc_moved/tmp/
+the matrix.ml file is the big matrix
+the other file is in old style with matching Npe to matrix file
+Let me know if you can use the matrix file and I can make more then.
+
+The code to produce ml files are at
+https://github.com/JeffersonLab/solid_gemc/tree/master/analysis/ml
+see readme
+
+I made two files for you to try at
+/work/halla/solid/zwzhao/solid/output_hgc_study/JLAB_VERSION_1.3/hgc_moved/test
+in ml file, the line "gen pid_gen  px_gen  py_gen   pz_gen   vx_gen vy_gen   vz_gen"
+pid for pim and km
+mom are in MeV and vertex are in mm
+You can use mom and angle range I used in preCDR hgc plots

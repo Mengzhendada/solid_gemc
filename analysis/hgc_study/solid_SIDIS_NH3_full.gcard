@@ -1,0 +1,58 @@
+<gcard>
+<detector name="../../geometry/target/solid_SIDIS_target_NH3" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/beamline/solid_SIDIS_beamline_NH3" factory="TEXT" variation="Original"/>
+
+<detector name="../../geometry/magnet/solid_solenoid" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/ec/solid_SIDIS_ec_largeangle" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/ec/solid_SIDIS_ec_forwardangle" factory="TEXT" variation="Original"/>
+
+variation="Original"/>
+<detector name="../../geometry/lgc/lg_cherenkov" factory="TEXT" variation="SIDIS"/>
+variation="Original"/>
+<detector name="../hgc_solid_gemc/solid_SIDIS_hgc" factory="TEXT" variation="Original"/>
+
+<detector name="../../geometry/gem/solid_SIDIS_gem" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/spd/solid_SIDIS_spd_forwardangle" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/spd/solid_SIDIS_spd_largeangle" factory="TEXT" variation="Original"/>
+<detector name="../../geometry/mrpc/solid_SIDIS_mrpc_forwardangle" factory="TEXT" variation="Original"/>
+
+<option name="INTEGRATEDRAW" value="flux"/>
+
+<option name="HIT_PROCESS_LIST" value="solid"/>
+<option name="PHYSICS" value="QGSP_BERT+STD+Optical"/>
+<option name="RECORD_PASSBY" value="1"/>
+<option name="HALL_MATERIAL" value="G4_AIR"/>
+
+<option name="MAX_X_POS" value="20000"/>
+<option name="MAX_Y_POS" value="20000"/>
+<option name="MAX_Z_POS" value="20000"/>
+<option name="HALL_DIMENSIONS" value="20*m,20*m,20*m"/>
+
+<option name="FIELD_DIR" value="../../field"/>
+<option name="HALL_FIELD" value="solenoid_CLEOv8"/>
+
+<option name="BEAM_P"   value="e-,11*GeV,2.179*deg,90*deg"/>
+<option name="SPREAD_P" value="0*GeV,0*deg,0*deg"/>
+<option name="BEAM_V"   value="(0,-18.7856763758,-4000)mm"/>
+<option name="SPREAD_V" value="(0,0)cm"/>
+
+<option name="EXEC_MACRO" value="../../../solid_gemc2/script/solid_slice.vis"/>
+<option name="geometry" value="1000x1000"/>
+<option name="HIGH_RES" value="1"/>
+<option name="USE_GUI"  value="1"/>
+
+</gcard>
+
+<!--  comment out
+<option name="FIELD_VERBOSITY"  value="100"/>
+<option name="GEO_VERBOSITY"  value="100"/>
+
+<option name="CHECK_OVERLAPS"  value="1"/>
+<option name="USE_GUI"  value="0"/>
+
+
+<option name="EXEC_MACRO" value="solid_slice.vis"/>
+<option name="geometry" value="1000x1000"/>
+<option name="HIGH_RES" value="1"/>
+<option name="USE_GUI"  value="1"/>
+-->
